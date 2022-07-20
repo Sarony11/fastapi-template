@@ -34,23 +34,13 @@ jobs:
     needs: [ prepare ]
     env:
       BRANCH_NAME: ${{needs.prepare.outputs.BRANCH_NAME}}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v3
 
-    - name: Docker login to AWS
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      run: $(aws ecr get-login-password --region ${{ secrets.AWS_REGION }})
-
-    - name: Build docker image
-      run: |
-        docker build  --network=host \
-                      --build-arg=AWS_ACCESS_KEY_ID="${{ secrets.AWS_ACCESS_KEY_ID }}" \
-                      --build-arg=AWS_SECRET_ACCESS_KEY="${{ secrets.AWS_SECRET_ACCESS_KEY }}" \
-                      --build-arg=AWS_REGION="${{ secrets.AWS_REGION }}" \
-                      -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.CLUSTER_NAME }}-${{env.BRANCH_NAME}}/${{ secrets.MODULE_NAME }}:${{env.BRANCH_NAME}}-${{ github.sha }} \
-    
-    - name: Push docker image to AWS ECR
-      run: |
-        docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.CLUSTER_NAME }}-${{env.BRANCH_NAME}}/${{ secrets.MODULE_NAME }}:${{env.BRANCH_NAME}}-${{ github.sha }}
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        role-to-assume: arn:aws:iam::478111762044:role/aws-traning-saul-eks-dev-role/my-github-actions-role
+        aws-region: us-east-1
