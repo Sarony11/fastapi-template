@@ -3,6 +3,7 @@ variable "image" {}
 variable "aws_access_key_id" {}
 variable "aws_secret_access_key" {}
 variable "aws_region" {}
+variable "branch" {}
 
 terraform {
 
@@ -285,7 +286,7 @@ resource "kubernetes_ingress" "ingress" {
 
         rule {
 
-            host = local.API_URL
+            /* host = local.API_URL */
 
             http {
 
