@@ -76,5 +76,5 @@ jobs:
                         -var aws_secret_access_key="${{ secrets.AWS_SECRET_ACCESS_KEY }}" \
                         -var aws_region="us-east-1" \
                         -var cluster_name="aws-traning-saul-eks-dev" \
-                        -var image="478111762044.dkr.ecr.us-east-1.amazonaws.com/aws-traning-saul-eks-dev/api-hello-world:api-hello-world-dev-dev-${{ github.sha }}" \
+                        -var image="478111762044.dkr.ecr.us-east-1.amazonaws.com/aws-traning-saul-eks-dev/api-hello-world:api-hello-world-dev-${{ github.sha }}" \
                         -var branch="${{ env.BRANCH_NAME }}"
