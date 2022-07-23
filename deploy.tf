@@ -167,11 +167,11 @@ resource "kubernetes_manifest" "deployment" {
 
                     terminationGracePeriodSeconds = 0
 
-                    nodeSelector = {
+                    /* nodeSelector = {
 
                         role = local.eks.node_selector_role
 
-                    }
+                    } */
 
                     containers = [
 
