@@ -264,7 +264,7 @@ resource "kubernetes_service" "service" {
 
 }
 
-resource "kubernetes_ingress" "ingress" {
+/* resource "kubernetes_ingress" "ingress" {
 
     provider = kubernetes.this
 
@@ -309,4 +309,4 @@ resource "kubernetes_ingress" "ingress" {
 
     }
 
-}
+} */
