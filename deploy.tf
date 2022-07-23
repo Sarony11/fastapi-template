@@ -277,16 +277,16 @@ resource "kubernetes_service" "service" {
 
     spec {
 
-        /* tls {
+        tls {
 
             hosts       = [ local.API_URL ]
             secret_name = "tls-ml.moodysanalytics.com"
 
-        } */
+        }
 
         rule {
 
-            /* host = local.API_URL */
+            host = local.API_URL
 
             http {
 
