@@ -30,7 +30,7 @@ locals {
 
     app = {
         name = "api-hello-world"
-        port = 8888
+        port = 8000
         protocol = "TCP"
     }
     
