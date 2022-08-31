@@ -221,7 +221,7 @@ resource "kubernetes_manifest" "deployment" {
 
 }
 
-/* resource "kubernetes_service" "service" {
+resource "kubernetes_service" "service" {
 
     provider = kubernetes.this
 
@@ -260,7 +260,7 @@ resource "kubernetes_manifest" "deployment" {
 
 }
 
-resource "kubernetes_ingress" "ingress" {
+/*resource "kubernetes_ingress" "ingress" {
 
     provider = kubernetes.this
 
