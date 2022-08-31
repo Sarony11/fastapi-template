@@ -32,9 +32,6 @@ locals {
         name = "api-hello-world"
         port = 8000
         protocol = "TCP"
-    }
-    
-    eks = {
         namespace = "default"
         node_selector_role = "services"
         replicas = 2
@@ -49,7 +46,6 @@ locals {
             }
         }
     }
-
 }
 
 terraform {
@@ -137,7 +133,7 @@ resource "kubernetes_manifest" "deployment" {
 
         spec = {
 
-            replicas = local.eks.replicas
+            replicas = local.app.replicas
 
             selector = {
 
@@ -197,15 +193,15 @@ resource "kubernetes_manifest" "deployment" {
 
                                 requests = {
 
-                                    cpu    = local.eks.resources.requests.cpu
-                                    memory = local.eks.resources.requests.memory
+                                    cpu    = local.app.resources.requests.cpu
+                                    memory = local.app.resources.requests.memory
 
                                 }
 
                                 limits = {
 
-                                    cpu    = local.eks.resources.limits.cpu
-                                    memory = local.eks.resources.limits.memory
+                                    cpu    = local.app.resources.limits.cpu
+                                    memory = local.app.resources.limits.memory
 
                                 }
 
@@ -225,7 +221,7 @@ resource "kubernetes_manifest" "deployment" {
 
 }
 
-resource "kubernetes_service" "service" {
+/* resource "kubernetes_service" "service" {
 
     provider = kubernetes.this
 
@@ -264,7 +260,7 @@ resource "kubernetes_service" "service" {
 
 }
 
-/* resource "kubernetes_ingress" "ingress" {
+resource "kubernetes_ingress" "ingress" {
 
     provider = kubernetes.this
 
